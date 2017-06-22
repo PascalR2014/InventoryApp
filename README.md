@@ -1,4 +1,4 @@
-# Android Inventory Manager
+# Android Fish Inventory Manager
 
 - Project **Inventory App** of Android Basics Nanodegree
 - [Android Basics Nanodegree at Udacity.com](https://www.udacity.com/course/android-basics-nanodegree-by-google--nd803)
