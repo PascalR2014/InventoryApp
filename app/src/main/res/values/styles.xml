@@ -13,4 +13,25 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <!-- GENERAL -->
+    <style name="std_layout">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <!--CardStyle-->
+    <style name="CardStyle" parent="std_layout">
+        <item name="cardCornerRadius">@dimen/radius_elevation</item>
+        <item name="cardElevation">@dimen/radius_elevation</item>
+        <item name="android:adjustViewBounds">true</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="style_recycler">
+        <item name="android:orientation">vertical</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:drawSelectorOnTop">true</item>
+    </style>
+
 </resources>
