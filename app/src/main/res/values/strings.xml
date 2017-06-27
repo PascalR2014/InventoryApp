@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Inventory Fish App</string>
+    <string name="app_name">Inventory Fish</string>
     <string name="action_settings">Settings</string>
 
     <!-- Title text for the empty view, which describes the empty dog house image [CHAR LIMIT=50] -->
