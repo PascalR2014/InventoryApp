@@ -2,7 +2,6 @@ package com.example.android.inventoryapp;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +16,11 @@ import com.example.android.inventoryapp.data.FishContract.FishEntry;
 
 public class FishCursorAdapter extends CursorAdapter {
 
+    private final MainActivity activity;
+
     public FishCursorAdapter(Context context, Cursor c) {
         super(context, c, 0);
+        this.activity = (MainActivity) context;
     }
 
     @Override
