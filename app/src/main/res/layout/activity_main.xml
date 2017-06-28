@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.android.inventoryapp.MainActivity">
+    tools:context=".MainActivity">
 
     <include layout="@layout/content_main" />
 
@@ -20,30 +20,17 @@
             android:layout_width="128dp"
             android:layout_height="128dp"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/aquarium"/>
+            android:src="@drawable/aquarium" />
 
         <TextView
             android:id="@+id/empty_title_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/empty_shelter_image"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="sans-serif-medium"
-            android:paddingTop="16dp"
             android:text="@string/empty_view_title_text"
-            android:textAppearance="?android:textAppearanceMedium"/>
+            style="@style/empty_title_text" />
 
         <TextView
             android:id="@+id/empty_subtitle_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/empty_title_text"
-            android:layout_centerHorizontal="true"
-            android:fontFamily="sans-serif"
-            android:paddingTop="8dp"
             android:text="@string/empty_view_subtitle_text"
-            android:textAppearance="?android:textAppearanceSmall"
-            android:textColor="#A2AAB0"/>
+            style="@style/empty_subtitle_text" />
     </RelativeLayout>
 
     <android.support.design.widget.FloatingActionButton
@@ -52,8 +39,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@drawable/animals"
-        android:layout_alignParentRight="true" />
+        app:srcCompat="@drawable/animals" />
 
 </RelativeLayout>

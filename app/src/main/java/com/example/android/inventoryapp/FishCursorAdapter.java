@@ -2,10 +2,14 @@ package com.example.android.inventoryapp;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.net.Uri;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.android.inventoryapp.data.FishContract.FishEntry;
@@ -16,11 +20,9 @@ import com.example.android.inventoryapp.data.FishContract.FishEntry;
 
 public class FishCursorAdapter extends CursorAdapter {
 
-    private final MainActivity activity;
-
+    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     public FishCursorAdapter(Context context, Cursor c) {
         super(context, c, 0);
-        this.activity = (MainActivity) context;
     }
 
     @Override
@@ -32,15 +34,28 @@ public class FishCursorAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, Context context, Cursor cursor) {
         // Find individual views that we want to modify in the list item layout
+        ImageView imageView = (ImageView) view.findViewById(R.id.img_fish);
         TextView nameTextView = (TextView) view.findViewById(R.id.text_name_fish);
+        TextView quantityTextView = (TextView) view.findViewById(R.id.fish_remain_number);
+        TextView priceTextView = (TextView) view.findViewById(R.id.fish_price);
 
         // Find the columns of pet attributes that we're interested in
+        int imageIndex = cursor.getColumnIndex(FishEntry.COLUMN_FISH_IMAGE);
         int nameColumnIndex = cursor.getColumnIndex(FishEntry.COLUMN_FISH_NAME);
+        int quantityIndex = cursor.getColumnIndex(FishEntry.COLUMN_FISH_QUANTITY);
+        int priceIndex = cursor.getColumnIndex(FishEntry.COLUMN_FISH_PRICE);
 
-        // Read the pet attributes from the Cursor for the current pet
-        String petName = cursor.getString(nameColumnIndex);
+        // Read the pet attributes from the Cursor for the current fish
+        String imageFish = cursor.getString(imageIndex);
+        String fishName = cursor.getString(nameColumnIndex);
+        int fishQuantity = cursor.getInt(quantityIndex);
+        String fishPrice = cursor.getString(priceIndex);
 
-        // Update the TextViews with the attributes for the current pet
-        nameTextView.setText(petName);
+
+        // Update the TextViews with the attributes for the current fish
+        imageView.setImageURI(Uri.parse(imageFish));
+        nameTextView.setText(fishName);
+        quantityTextView.setText(String.valueOf(fishQuantity));
+        priceTextView.setText(String.valueOf(fishPrice));
     }
 }

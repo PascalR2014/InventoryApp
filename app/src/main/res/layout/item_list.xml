@@ -15,7 +15,7 @@
             android:layout_height="64dp"
             android:layout_gravity="center_vertical"
             android:gravity="center"
-            android:src="@drawable/default_fish"/>
+            android:src="@drawable/default_fish" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -26,25 +26,40 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/text_name_fish"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:maxLines="1"
-                android:textColor="@color/textColorName"
-                android:textSize="20sp"
-                tools:text="The name of the fish" />
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/text_name_fish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="end"
+                    android:maxLines="1"
+                    android:textColor="@color/textColorName"
+                    android:textSize="20sp"
+                    tools:text="The name of the fish" />
+
+                <TextView
+                    android:id="@+id/fish_price"
+                    android:layout_alignParentEnd="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/textColorName"
+                    android:textSize="20sp"
+                    android:textStyle="bold"
+                    tools:text="$30"
+                    android:layout_alignParentRight="true" />
+
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_gravity="start"
-                >
+                android:orientation="horizontal">
 
                 <TextView
-                    android:id="@+id/location_offset"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
@@ -55,7 +70,7 @@
                     tools:text="# " />
 
                 <TextView
-                    android:id="@+id/fish_number"
+                    android:id="@+id/fish_remain_number"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
@@ -82,8 +97,8 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
-                android:textSize="12sp"
-                android:background="@drawable/sport2" />
+                android:background="@drawable/sport2"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/buy_number"
