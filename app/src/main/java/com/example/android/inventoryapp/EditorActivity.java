@@ -99,7 +99,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                picImage();
+                //picImage();
+                Intent intent = new Intent(EditorActivity.this, GridActivity.class);
+                startActivity(intent);
                 mFishHasChanged = true;
             }
         });
