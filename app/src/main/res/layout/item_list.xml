@@ -92,13 +92,12 @@
             android:layout_marginStart="8dp"
             android:orientation="vertical">
 
-            <TextView
+            <ImageView
                 android:id="@+id/buy"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_gravity="center"
-                android:background="@drawable/sport2"
-                android:textSize="12sp" />
+                android:src="@drawable/sport2"/>
 
             <TextView
                 android:id="@+id/buy_number"

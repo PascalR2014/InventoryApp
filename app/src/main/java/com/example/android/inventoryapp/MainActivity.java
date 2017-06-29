@@ -10,7 +10,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -59,9 +58,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
                 Intent intent = new Intent(MainActivity.this, EditorActivity.class);
-                Uri currentPetUri = ContentUris.withAppendedId(FishEntry.CONTENT_URI, id);
+                Uri currentFishUri = ContentUris.withAppendedId(FishEntry.CONTENT_URI, id);
 
-                intent.setData(currentPetUri);
+                intent.setData(currentFishUri);
 
                 startActivity(intent);
             }
@@ -119,15 +118,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private void deleteAllFish() {
         int rowsDeleted = getContentResolver().delete(FishEntry.CONTENT_URI, null, null);
-        Log.v("CatalogActivity", rowsDeleted + " rows deleted from pet database");
+        Log.v("CatalogActivity", rowsDeleted + " rows deleted from fish database");
     }
 
     private void insertFish() {
         ContentValues values = new ContentValues();
         values.put(FishEntry.COLUMN_FISH_IMAGE, FishEntry.DEFAULT_IMAGE);
         values.put(FishEntry.COLUMN_FISH_NAME, "Toto");
-        values.put(FishEntry.COLUMN_FISH_QUANTITY, 20);
         values.put(FishEntry.COLUMN_FISH_PRICE, 7);
+        values.put(FishEntry.COLUMN_FISH_QUANTITY, 20);
+        values.put(FishEntry.COLUMN_SUPPLIER_NAME, "Jason");
+        values.put(FishEntry.COLUMN_SUPPLIER_PHONE, "00000000");
+        values.put(FishEntry.COLUMN_SUPPLIER_EMAIL, "j.son@mail.com");
 
         Uri newUri = getContentResolver().insert(FishEntry.CONTENT_URI, values);
         Log.v("MainActivity", "Uri of new fish: " + newUri);
@@ -140,8 +142,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 FishEntry._ID,
                 FishEntry.COLUMN_FISH_IMAGE,
                 FishEntry.COLUMN_FISH_NAME,
+                FishEntry.COLUMN_FISH_PRICE,
                 FishEntry.COLUMN_FISH_QUANTITY,
-                FishEntry.COLUMN_FISH_PRICE};
+                FishEntry.COLUMN_SUPPLIER_NAME,
+                FishEntry.COLUMN_SUPPLIER_PHONE,
+                FishEntry.COLUMN_SUPPLIER_EMAIL};
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
@@ -170,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mCursorAdapter.swapCursor(null);
     }
 
-    public void onSellClick(long id, int quantity ){
+    public void onSellFish(long id, int quantity ){
         Uri currentFishUri = ContentUris.withAppendedId(FishEntry.CONTENT_URI, id);
         Log.v("CatalogActivity", "Uri: " + currentFishUri);
 

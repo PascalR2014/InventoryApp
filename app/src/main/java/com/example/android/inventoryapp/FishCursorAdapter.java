@@ -42,6 +42,7 @@ public class FishCursorAdapter extends CursorAdapter {
         TextView nameTextView = (TextView) view.findViewById(R.id.text_name_fish);
         TextView quantityTextView = (TextView) view.findViewById(R.id.fish_remain_number);
         TextView priceTextView = (TextView) view.findViewById(R.id.fish_price);
+        ImageView saleView = (ImageView) view.findViewById(R.id.buy);
 
         // Find the columns of pet attributes that we're interested in
         int imageIndex = cursor.getColumnIndex(FishEntry.COLUMN_FISH_IMAGE);
@@ -63,11 +64,11 @@ public class FishCursorAdapter extends CursorAdapter {
         quantityTextView.setText(String.valueOf(fishQuantity));
         priceTextView.setText(String.valueOf(fishPrice));
 
-        view.setOnClickListener(new View.OnClickListener() {
+        saleView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(fishQuantity >0 ) {
-                    activity.onSellClick(id, fishQuantity);
+                if(fishQuantity > 0 ) {
+                    activity.onSellFish(id, fishQuantity);
                 } else {
                     Toast.makeText(activity, "Quantity Unavailable", Toast.LENGTH_SHORT).show();
                 }

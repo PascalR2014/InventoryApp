@@ -23,4 +23,18 @@
 
     <string name="editor_delete_fish_successful">Fish deleted</string>
     <string name="editor_delete_fish_failed">Error with deleting fish</string>
+
+    <string name="editor_activity_title_new_fish">Add a Fish</string>
+    <string name="editor_activity_title_edit_fish">Edit Fish</string>
+
+    <string name="intentType">image/*</string>
+    <string name="selectPicture">Select Picture</string>
+
+    <string name="action_order">Order more</string>
+
+    <string name="editor_insert_fish_successful">Fish saved</string>
+    <string name="editor_insert_fish_failed">Error with saving fish</string>
+
+    <string name="editor_update_fish_successful">Fish updated</string>
+    <string name="editor_update_fish_failed">Error with updating fish</string>
 </resources>
