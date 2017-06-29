@@ -34,6 +34,8 @@ public final class FishContract {
         public static final String COLUMN_SUPPLIER_PHONE = "supplier_phone";
         public static final String COLUMN_SUPPLIER_EMAIL = "supplier_email";
 
+        public static final String DEFAULT_IMAGE = "android.resource://com.example.android.inventory/drawable/default_fish";
+
         /**
          * The MIME type of the {@link #CONTENT_URI} for a list of fish.
          */

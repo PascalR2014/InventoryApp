@@ -3,23 +3,26 @@ package com.example.android.inventoryapp;
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.CursorLoader;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.example.android.inventoryapp.data.FishContract.FishEntry;
 
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private static final int FISH_LOADER = 0;
     FishCursorAdapter mCursorAdapter;
+    View emptyView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +46,29 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
                 startActivity(intent);
             }
         });
+
+        ListView fishListView = (ListView) findViewById(R.id.list);
+        emptyView = findViewById(R.id.empty_view);
+        fishListView.setEmptyView(emptyView);
+
+        mCursorAdapter = new FishCursorAdapter(this, null);
+        fishListView.setAdapter(mCursorAdapter);
+
+        // Setup the item click listener
+        fishListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Intent intent = new Intent(MainActivity.this, EditorActivity.class);
+                Uri currentPetUri = ContentUris.withAppendedId(FishEntry.CONTENT_URI, id);
+
+                intent.setData(currentPetUri);
+
+                startActivity(intent);
+            }
+        });
+
+        // Kick off the loader
+        getLoaderManager().initLoader(FISH_LOADER, null, this);
     }
 
     @Override
@@ -97,12 +124,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private void insertFish() {
         ContentValues values = new ContentValues();
-        values.put(FishEntry.COLUMN_FISH_IMAGE, R.drawable.default_fish);
+        values.put(FishEntry.COLUMN_FISH_IMAGE, FishEntry.DEFAULT_IMAGE);
         values.put(FishEntry.COLUMN_FISH_NAME, "Toto");
         values.put(FishEntry.COLUMN_FISH_QUANTITY, 20);
         values.put(FishEntry.COLUMN_FISH_PRICE, 7);
 
         Uri newUri = getContentResolver().insert(FishEntry.CONTENT_URI, values);
+        Log.v("MainActivity", "Uri of new fish: " + newUri);
     }
 
     @Override
@@ -127,6 +155,11 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+        if(!data.moveToFirst()) {
+            emptyView.setVisibility(View.VISIBLE);
+        } else {
+            emptyView.setVisibility(View.GONE);
+        }
         mCursorAdapter.swapCursor(data);
     }
 
@@ -135,5 +168,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     public void onLoaderReset(Loader<Cursor> loader) {
         // Callback called when the data needs to be deleted
         mCursorAdapter.swapCursor(null);
+    }
+
+    public void onSellClick(long id, int quantity ){
+        Uri currentFishUri = ContentUris.withAppendedId(FishEntry.CONTENT_URI, id);
+        Log.v("CatalogActivity", "Uri: " + currentFishUri);
+
+        quantity --;
+
+        ContentValues values = new ContentValues();
+        values.put(FishEntry.COLUMN_FISH_QUANTITY, quantity);
+        getContentResolver().update(currentFishUri, values, null, null);
     }
 }

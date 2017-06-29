@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.inventoryapp.data.FishContract.FishEntry;
 
@@ -20,9 +21,12 @@ import com.example.android.inventoryapp.data.FishContract.FishEntry;
 
 public class FishCursorAdapter extends CursorAdapter {
 
+    private MainActivity activity;
+
     @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     public FishCursorAdapter(Context context, Cursor c) {
         super(context, c, 0);
+        this.activity = (MainActivity) context;
     }
 
     @Override
@@ -48,14 +52,26 @@ public class FishCursorAdapter extends CursorAdapter {
         // Read the pet attributes from the Cursor for the current fish
         String imageFish = cursor.getString(imageIndex);
         String fishName = cursor.getString(nameColumnIndex);
-        int fishQuantity = cursor.getInt(quantityIndex);
+        final int fishQuantity = cursor.getInt(quantityIndex);
         String fishPrice = cursor.getString(priceIndex);
 
+        final long id = cursor.getLong(cursor.getColumnIndex(FishEntry._ID));
 
         // Update the TextViews with the attributes for the current fish
         imageView.setImageURI(Uri.parse(imageFish));
         nameTextView.setText(fishName);
         quantityTextView.setText(String.valueOf(fishQuantity));
         priceTextView.setText(String.valueOf(fishPrice));
+
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(fishQuantity >0 ) {
+                    activity.onSellClick(id, fishQuantity);
+                } else {
+                    Toast.makeText(activity, "Quantity Unavailable", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
     }
 }
