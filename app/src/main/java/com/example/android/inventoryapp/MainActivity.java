@@ -1,6 +1,5 @@
 package com.example.android.inventoryapp;
 
-import android.annotation.TargetApi;
 import android.app.AlertDialog;
 import android.app.LoaderManager;
 import android.content.ContentUris;
@@ -22,14 +21,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.android.inventoryapp.data.FishContract.FishEntry;
 
-@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+
+@RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
     private static final int FISH_LOADER = 0;
     FishCursorAdapter mCursorAdapter;
+    TextView buyNumber;
     View emptyView;
 
     @Override
@@ -47,6 +49,10 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         });
 
         ListView fishListView = (ListView) findViewById(R.id.list);
+
+        buyNumber = (TextView) findViewById(R.id.buy_number);
+        buyNumber.setText(0);
+
         emptyView = findViewById(R.id.empty_view);
         fishListView.setEmptyView(emptyView);
 
@@ -125,8 +131,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         ContentValues values = new ContentValues();
         values.put(FishEntry.COLUMN_FISH_IMAGE, FishEntry.DEFAULT_IMAGE);
         values.put(FishEntry.COLUMN_FISH_NAME, "Toto");
-        values.put(FishEntry.COLUMN_FISH_PRICE, 7);
-        values.put(FishEntry.COLUMN_FISH_QUANTITY, 20);
+        values.put(FishEntry.COLUMN_FISH_PRICE, "7");
+        values.put(FishEntry.COLUMN_FISH_QUANTITY, "20");
         values.put(FishEntry.COLUMN_SUPPLIER_NAME, "Jason");
         values.put(FishEntry.COLUMN_SUPPLIER_PHONE, "00000000");
         values.put(FishEntry.COLUMN_SUPPLIER_EMAIL, "j.son@mail.com");
@@ -160,11 +166,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if(!data.moveToFirst()) {
-            emptyView.setVisibility(View.VISIBLE);
-        } else {
-            emptyView.setVisibility(View.GONE);
-        }
         mCursorAdapter.swapCursor(data);
     }
 
@@ -176,10 +177,16 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     public void onSellFish(long id, int quantity ){
+        int buying = 0;
         Uri currentFishUri = ContentUris.withAppendedId(FishEntry.CONTENT_URI, id);
         Log.v("CatalogActivity", "Uri: " + currentFishUri);
 
-        quantity --;
+        if(quantity > 0) {
+            quantity--;
+            buying++;
+        }
+
+        buyNumber.setText(buying);
 
         ContentValues values = new ContentValues();
         values.put(FishEntry.COLUMN_FISH_QUANTITY, quantity);

@@ -94,8 +94,7 @@ public class FishProvider extends ContentProvider{
 
     @Nullable
     private Uri insertFish(Uri uri, ContentValues values) {
-        // Check that the name is not null
-        String name = values.getAsString(FishEntry.TABLE_NAME);
+        String name = values.getAsString(FishEntry.COLUMN_FISH_NAME);
         if (name == null) {
             throw new IllegalArgumentException("Fish requires a name");
         }
