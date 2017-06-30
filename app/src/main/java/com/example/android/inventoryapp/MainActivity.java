@@ -50,8 +50,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
         ListView fishListView = (ListView) findViewById(R.id.list);
 
-        buyNumber = (TextView) findViewById(R.id.buy_number);
-        buyNumber.setText(0);
+        //buyNumber = (TextView) findViewById(R.id.buy_number);
+        //buyNumber.setText(0);
 
         emptyView = findViewById(R.id.empty_view);
         fishListView.setEmptyView(emptyView);
@@ -186,7 +186,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             buying++;
         }
 
-        buyNumber.setText(buying);
+        //buyNumber.setText(buying);
 
         ContentValues values = new ContentValues();
         values.put(FishEntry.COLUMN_FISH_QUANTITY, quantity);
