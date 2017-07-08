@@ -22,7 +22,7 @@ import com.example.android.inventoryapp.data.FishContract.FishEntry;
 
 public class FishCursorAdapter extends CursorAdapter {
 
-    private MainActivity activity;
+    private final MainActivity activity;
 
     @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
     public FishCursorAdapter(Context context, Cursor c) {
