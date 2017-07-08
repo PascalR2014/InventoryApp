@@ -96,12 +96,13 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mSupplierName.setOnTouchListener(mTouchListener);
         mSupplierPhone.setOnTouchListener(mTouchListener);
         mSupplierEmail.setOnTouchListener(mTouchListener);
+
         mImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //picImage();
-                Intent intent = new Intent(EditorActivity.this, GridActivity.class);
-                startActivity(intent);
+                picImage();
+                //Intent intent = new Intent(EditorActivity.this, GridActivity.class);
+                //startActivity(intent);
                 mFishHasChanged = true;
             }
         });
@@ -402,7 +403,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         // This loader will execute the ContentProvider's query method on a background thread
         return new CursorLoader(this,   // Parent activity context
-                FishEntry.CONTENT_URI,   // Provider content URI to query
+                mCurrentFishUri,        // Provider content URI to query
                 projection,             // Columns to include in the resulting Cursor
                 null,                   // No selection clause
                 null,                   // No selection arguments
@@ -418,8 +419,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             // Find the columns of fish attributes that we're interested in
             int imageColumnIndex = cursor.getColumnIndex(FishEntry.COLUMN_FISH_IMAGE);
             int nameColumnIndex = cursor.getColumnIndex(FishEntry.COLUMN_FISH_NAME);
-            int priceColumnIndex = cursor.getColumnIndex(FishEntry.COLUMN_FISH_NAME);
-            int quantityColumnIndex = cursor.getColumnIndex(FishEntry.COLUMN_FISH_NAME);
+            int priceColumnIndex = cursor.getColumnIndex(FishEntry.COLUMN_FISH_PRICE);
+            int quantityColumnIndex = cursor.getColumnIndex(FishEntry.COLUMN_FISH_QUANTITY);
             int supNameColumnIndex = cursor.getColumnIndex(FishEntry.COLUMN_SUPPLIER_NAME);
             int supPhoneColumnIndex = cursor.getColumnIndex(FishEntry.COLUMN_SUPPLIER_PHONE);
             int supEmailColumnIndex = cursor.getColumnIndex(FishEntry.COLUMN_SUPPLIER_EMAIL);
@@ -438,8 +439,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             mImage.setImageURI(imageUri);
 
             mNameEditText.setText(name);
-            mPriceEditText.setText(Integer.toString(price));
-            mQuantityEditText.setText(Integer.toString(quantity));
+            mPriceEditText.setText(String.valueOf(price));
+            mQuantityEditText.setText(String.valueOf(quantity));
             mSupplierName.setText(supName);
             mSupplierPhone.setText(supPhone);
             mSupplierEmail.setText(supEmail);

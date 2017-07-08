@@ -1,5 +1,6 @@
 package com.example.android.inventoryapp;
 
+import android.annotation.TargetApi;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
@@ -65,12 +66,13 @@ public class FishCursorAdapter extends CursorAdapter {
         priceTextView.setText(String.valueOf(fishPrice));
 
         saleView.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.HONEYCOMB)
             @Override
             public void onClick(View v) {
                 if(fishQuantity > 0 ) {
                     activity.onSellFish(id, fishQuantity);
                 } else {
-                    Toast.makeText(activity, "Quantity Unavailable", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "Quantity Unvailable", Toast.LENGTH_SHORT).show();
                 }
             }
         });
