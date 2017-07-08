@@ -22,7 +22,9 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.android.inventoryapp.data.FishContract;
 import com.example.android.inventoryapp.data.FishContract.FishEntry;
 
 
@@ -176,6 +178,15 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         mCursorAdapter.swapCursor(null);
     }
 
+    public void onClickItem (long id) {
+        Intent intent = new Intent(MainActivity.this, EditorActivity.class);
+
+        Uri currentProductUri = ContentUris.withAppendedId(FishContract.FishEntry.CONTENT_URI, id);
+        intent.setData(currentProductUri);
+
+        startActivity(intent);
+    }
+
     public void onSellFish(long id, int quantity ){
         int buying = 0;
         Uri currentFishUri = ContentUris.withAppendedId(FishEntry.CONTENT_URI, id);
@@ -184,9 +195,9 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         if(quantity > 0) {
             quantity--;
             buying++;
+            //buyNumber.setText(String.valueOf(buying));
+            Toast.makeText(this, "Fish buyed!", Toast.LENGTH_SHORT).show();
         }
-
-        //buyNumber.setText(buying);
 
         ContentValues values = new ContentValues();
         values.put(FishEntry.COLUMN_FISH_QUANTITY, quantity);

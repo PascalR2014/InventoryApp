@@ -196,14 +196,20 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         builder.setNegativeButton("Email", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 // intent to email
-                Intent intent = new Intent(android.content.Intent.ACTION_SENDTO);
-                intent.setType("text/plain");
-                intent.setData(Uri.parse("mailto:" + mSupplierEmail.getText().toString().trim()));
-                intent.putExtra(android.content.Intent.EXTRA_SUBJECT, "New order");
+                String sender = mSupplierEmail.getText().toString().trim();
                 String bodyMessage = "Hi, we want to order more " +
                         mNameEditText.getText().toString().trim() + "./nThank you";
-                intent.putExtra(android.content.Intent.EXTRA_TEXT, bodyMessage);
-                startActivity(intent);
+
+                Intent intent = new Intent(android.content.Intent.ACTION_SENDTO);
+                intent.setType("text/plain");
+                intent.setData(Uri.parse("mailto:" + sender));
+
+                intent.putExtra(Intent.EXTRA_SUBJECT, "New order");
+                intent.putExtra(Intent.EXTRA_TEXT, bodyMessage);
+
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
             }
         });
         android.support.v7.app.AlertDialog alertDialog = builder.create();
