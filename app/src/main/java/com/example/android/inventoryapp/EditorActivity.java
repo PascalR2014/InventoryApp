@@ -294,6 +294,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         ContentValues values = new ContentValues();
 
+        if (TextUtils.isEmpty(imageUri.toString())) {
+            Toast.makeText(this, "Fish image required", Toast.LENGTH_SHORT).show();
+            return allSafe;
+        }
+        values.put(FishEntry.COLUMN_FISH_IMAGE, imageUri.toString());
+
         if (TextUtils.isEmpty(nameString)) {
             Toast.makeText(this, "Fish name required", Toast.LENGTH_SHORT).show();
             return allSafe;
@@ -318,13 +324,22 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         }
         values.put(FishEntry.COLUMN_SUPPLIER_NAME, supplierNameString);
 
+        if (TextUtils.isEmpty(supplierPhoneString)) {
+            Toast.makeText(this, "Supplier phone required", Toast.LENGTH_SHORT).show();
+            return allSafe;
+        }
         values.put(FishEntry.COLUMN_SUPPLIER_PHONE, supplierPhoneString);
+
+        if (TextUtils.isEmpty(supplierEmailString)) {
+            Toast.makeText(this, "Supplier email required", Toast.LENGTH_SHORT).show();
+            return allSafe;
+        }
         values.put(FishEntry.COLUMN_SUPPLIER_EMAIL, supplierEmailString);
 
         if (mCurrentFishUri == null) {
 
-            // This is a NEW pet, so insert a new pet into the provider,
-            // returning the content URI for the new pet.
+            // This is a NEW pet, so insert a new fish into the provider,
+            // returning the content URI for the new fish.
             Uri newUri = getContentResolver().insert(FishEntry.CONTENT_URI, values);
 
             // Show a toast message depending on whether or not the insertion was successful.
