@@ -288,14 +288,14 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         if (mCurrentFishUri == null &&
                 TextUtils.isEmpty(nameString) && TextUtils.isEmpty(priceString) &&
                 TextUtils.isEmpty(quantityString) && TextUtils.isEmpty(supplierNameString) &&
-                (TextUtils.isEmpty(supplierPhoneString) || TextUtils.isEmpty(supplierEmailString)) && imageUri == null) {
+                (TextUtils.isEmpty(supplierPhoneString) || TextUtils.isEmpty(supplierEmailString)) || imageUri == null) {
             allSafe = true;
             return allSafe;
         }
 
         ContentValues values = new ContentValues();
 
-        if (TextUtils.isEmpty(imageUri.toString())) {
+        if (imageUri == null) {
             Toast.makeText(this, "Fish image required", Toast.LENGTH_SHORT).show();
             return allSafe;
         }
