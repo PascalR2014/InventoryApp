@@ -51,6 +51,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     private EditText mSupplierName;
     private EditText mSupplierPhone;
     private EditText mSupplierEmail;
+    private int quantity;
 
     private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
         @Override
@@ -452,7 +453,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             String imageUriString = cursor.getString(imageColumnIndex);
             String name = cursor.getString(nameColumnIndex);
             int price = cursor.getInt(priceColumnIndex);
-            int quantity = cursor.getInt(quantityColumnIndex);
+            quantity = cursor.getInt(quantityColumnIndex);
             String supName = cursor.getString(supNameColumnIndex);
             String supPhone = cursor.getString(supPhoneColumnIndex);
             String supEmail = cursor.getString(supEmailColumnIndex);
@@ -478,5 +479,19 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mSupplierName.setText("");
         mSupplierEmail.setText("");
         mSupplierPhone.setText("");
+    }
+
+    public void decreaseQuantity(View view) {
+        if (quantity <= 1) {
+            Toast.makeText(this, "Quantity can be under 1 element.", Toast.LENGTH_SHORT).show();
+        } else {
+            quantity--;
+            mQuantityEditText.setText(String.valueOf(quantity));
+        }
+    }
+
+    public void increaseQuantity(View view) {
+        quantity++;
+        mQuantityEditText.setText(String.valueOf(quantity));
     }
 }

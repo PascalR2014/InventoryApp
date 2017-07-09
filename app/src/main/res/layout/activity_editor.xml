@@ -14,10 +14,10 @@
             android:id="@+id/fish_picture"
             android:layout_width="150dp"
             android:layout_height="150dp"
+            android:alpha="0.6"
             android:background="@color/colorPrimary"
-            android:src="@drawable/ic_add_photo"
             android:padding="24dp"
-            android:alpha="0.6"/>
+            android:src="@drawable/ic_add_photo" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -65,12 +65,34 @@
                 </RelativeLayout>
             </LinearLayout>
 
-            <EditText
-                android:id="@+id/edit_fish_quantity"
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="Fish Quantity"
-                android:inputType="numberDecimal" />
+                android:orientation="horizontal">
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="-"
+                    android:onClick="decreaseQuantity"/>
+
+                <EditText
+                    android:id="@+id/edit_fish_quantity"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:gravity="center"
+                    android:hint="Quantity"
+                    android:inputType="numberDecimal" />
+
+                <Button
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="+"
+                    android:onClick="increaseQuantity"/>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
@@ -82,27 +104,27 @@
 
         <!-- Label -->
         <TextView
-            android:text="Supplier Name"
-            android:paddingTop="16dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:paddingTop="16dp"
+            android:text="Supplier Name" />
 
         <!-- Input fields -->
         <LinearLayout
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:paddingLeft="4dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="4dp">
 
             <!-- Name field -->
             <EditText
                 android:id="@+id/edit_sup_name"
-                android:hint="Name"
-                android:inputType="textCapWords"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:hint="Name"
+                android:inputType="textCapWords" />
         </LinearLayout>
     </LinearLayout>
 
@@ -114,27 +136,27 @@
 
         <!-- Label -->
         <TextView
-            android:text="Supplier Phone"
-            android:paddingTop="16dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:paddingTop="16dp"
+            android:text="Supplier Phone" />
 
         <!-- Input fields -->
         <LinearLayout
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:paddingLeft="4dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="4dp">
 
             <!-- Name field -->
             <EditText
                 android:id="@+id/edit_sup_phone"
-                android:hint="Phone"
-                android:inputType="phone"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:hint="Phone"
+                android:inputType="phone" />
         </LinearLayout>
     </LinearLayout>
 
@@ -146,27 +168,27 @@
 
         <!-- Label -->
         <TextView
-            android:text="Supplier Email"
-            android:paddingTop="16dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:paddingTop="16dp"
+            android:text="Supplier Email" />
 
         <!-- Input fields -->
         <LinearLayout
-            android:layout_height="wrap_content"
             android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_weight="2"
-            android:paddingLeft="4dp"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="4dp">
 
             <!-- Name field -->
             <EditText
                 android:id="@+id/edit_sup_email"
-                android:hint="Email"
-                android:inputType="textEmailAddress"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:hint="Email"
+                android:inputType="textEmailAddress" />
         </LinearLayout>
     </LinearLayout>
 
