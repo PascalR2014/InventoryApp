@@ -209,6 +209,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
                 if (intent.resolveActivity(getPackageManager()) != null) {
                     startActivity(intent);
+                } else {
+                    Toast.makeText(EditorActivity.this, R.string.handle_intent_email, Toast.LENGTH_SHORT).show();
                 }
             }
         });

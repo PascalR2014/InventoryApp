@@ -82,7 +82,7 @@ public class FishCursorAdapter extends CursorAdapter {
                 if(fishQuantity > 0 ) {
                     activity.onSellFish(id, fishQuantity);
                 } else {
-                    Toast.makeText(activity, "Quantity Unvailable", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(activity, "Quantity Unvailable, order more!", Toast.LENGTH_SHORT).show();
                 }
             }
         });

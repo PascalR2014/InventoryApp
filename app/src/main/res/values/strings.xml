@@ -37,4 +37,6 @@
 
     <string name="editor_update_fish_successful">Fish updated</string>
     <string name="editor_update_fish_failed">Error with updating fish</string>
+
+    <string name="handle_intent_email">Ops! I think you don\'t have any app that can send an email.</string>
 </resources>
