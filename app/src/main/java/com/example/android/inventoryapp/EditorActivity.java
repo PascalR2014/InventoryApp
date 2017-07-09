@@ -276,8 +276,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     private boolean saveFish() {
 
-        boolean allSafe = false;
-
         String nameString = mNameEditText.getText().toString().trim();
         String priceString = mPriceEditText.getText().toString().trim();
         String quantityString = mQuantityEditText.getText().toString();
@@ -289,51 +287,51 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 TextUtils.isEmpty(nameString) && TextUtils.isEmpty(priceString) &&
                 TextUtils.isEmpty(quantityString) && TextUtils.isEmpty(supplierNameString) &&
                 (TextUtils.isEmpty(supplierPhoneString) || TextUtils.isEmpty(supplierEmailString)) || imageUri == null) {
-            allSafe = true;
-            return allSafe;
+
+            return true;
         }
 
         ContentValues values = new ContentValues();
 
         if (imageUri == null) {
             Toast.makeText(this, "Fish image required", Toast.LENGTH_SHORT).show();
-            return allSafe;
+            return false;
         }
         values.put(FishEntry.COLUMN_FISH_IMAGE, imageUri.toString());
 
         if (TextUtils.isEmpty(nameString)) {
             Toast.makeText(this, "Fish name required", Toast.LENGTH_SHORT).show();
-            return allSafe;
+            return false;
         }
         values.put(FishEntry.COLUMN_FISH_NAME, nameString);
 
         if (TextUtils.isEmpty(priceString)) {
             Toast.makeText(this, "Fish price required", Toast.LENGTH_SHORT).show();
-            return allSafe;
+            return false;
         }
         values.put(FishEntry.COLUMN_FISH_PRICE, priceString);
 
         if (TextUtils.isEmpty(quantityString)) {
             Toast.makeText(this, "Fish quantity required", Toast.LENGTH_SHORT).show();
-            return allSafe;
+            return false;
         }
         values.put(FishEntry.COLUMN_FISH_QUANTITY, quantityString);
 
         if (TextUtils.isEmpty(supplierNameString)) {
             Toast.makeText(this, "Supplier name required", Toast.LENGTH_SHORT).show();
-            return allSafe;
+            return false;
         }
         values.put(FishEntry.COLUMN_SUPPLIER_NAME, supplierNameString);
 
         if (TextUtils.isEmpty(supplierPhoneString)) {
             Toast.makeText(this, "Supplier phone required", Toast.LENGTH_SHORT).show();
-            return allSafe;
+            return false;
         }
         values.put(FishEntry.COLUMN_SUPPLIER_PHONE, supplierPhoneString);
 
         if (TextUtils.isEmpty(supplierEmailString)) {
             Toast.makeText(this, "Supplier email required", Toast.LENGTH_SHORT).show();
-            return allSafe;
+            return false;
         }
         values.put(FishEntry.COLUMN_SUPPLIER_EMAIL, supplierEmailString);
 
@@ -367,9 +365,8 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                         Toast.LENGTH_SHORT).show();
             }
         }
-        
-        allSafe = true;
-        return allSafe;
+
+        return true;
     }
 
     @Override
