@@ -71,7 +71,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
         if(mCurrentFishUri == null){
             setTitle(getString(R.string.editor_activity_title_new_fish));
-
             invalidateOptionsMenu();
         } else {
             setTitle(getString(R.string.editor_activity_title_edit_fish));
@@ -154,8 +153,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save:
-                if(saveFish())
-                    finish();
+                saveFish();
                 return true;
             case R.id.action_delete:
                 showDeleteConfirmationDialog();
@@ -274,7 +272,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             alertDialog.show();
     }
 
-    private boolean saveFish() {
+    private void saveFish() {
 
         String nameString = mNameEditText.getText().toString().trim();
         String priceString = mPriceEditText.getText().toString().trim();
@@ -286,55 +284,49 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         if (mCurrentFishUri == null &&
                 TextUtils.isEmpty(nameString) && TextUtils.isEmpty(priceString) &&
                 TextUtils.isEmpty(quantityString) && TextUtils.isEmpty(supplierNameString) &&
-                (TextUtils.isEmpty(supplierPhoneString) || TextUtils.isEmpty(supplierEmailString)) || imageUri == null) {
+                (TextUtils.isEmpty(supplierPhoneString) || TextUtils.isEmpty(supplierEmailString)) && imageUri == null) {
 
-            return true;
+            return;
         }
 
         ContentValues values = new ContentValues();
 
         if (imageUri == null) {
             Toast.makeText(this, "Fish image required", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        values.put(FishEntry.COLUMN_FISH_IMAGE, imageUri.toString());
+            return;
+        } else values.put(FishEntry.COLUMN_FISH_IMAGE, imageUri.toString());
 
         if (TextUtils.isEmpty(nameString)) {
             Toast.makeText(this, "Fish name required", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        values.put(FishEntry.COLUMN_FISH_NAME, nameString);
+            return;
+        }else values.put(FishEntry.COLUMN_FISH_NAME, nameString);
 
         if (TextUtils.isEmpty(priceString)) {
             Toast.makeText(this, "Fish price required", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        values.put(FishEntry.COLUMN_FISH_PRICE, priceString);
+            return;
+        }else values.put(FishEntry.COLUMN_FISH_PRICE, priceString);
 
         if (TextUtils.isEmpty(quantityString)) {
             Toast.makeText(this, "Fish quantity required", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        values.put(FishEntry.COLUMN_FISH_QUANTITY, quantityString);
+            return;
+        }else values.put(FishEntry.COLUMN_FISH_QUANTITY, quantityString);
 
         if (TextUtils.isEmpty(supplierNameString)) {
             Toast.makeText(this, "Supplier name required", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        values.put(FishEntry.COLUMN_SUPPLIER_NAME, supplierNameString);
+            return;
+        }else values.put(FishEntry.COLUMN_SUPPLIER_NAME, supplierNameString);
 
         if (TextUtils.isEmpty(supplierPhoneString)) {
             Toast.makeText(this, "Supplier phone required", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        values.put(FishEntry.COLUMN_SUPPLIER_PHONE, supplierPhoneString);
+            return;
+        }else values.put(FishEntry.COLUMN_SUPPLIER_PHONE, supplierPhoneString);
 
         if (TextUtils.isEmpty(supplierEmailString)) {
             Toast.makeText(this, "Supplier email required", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-        values.put(FishEntry.COLUMN_SUPPLIER_EMAIL, supplierEmailString);
+            return;
+        }else values.put(FishEntry.COLUMN_SUPPLIER_EMAIL, supplierEmailString);
 
+        // New Product
         if (mCurrentFishUri == null) {
 
             // This is a NEW pet, so insert a new fish into the provider,
@@ -352,6 +344,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                         Toast.LENGTH_SHORT).show();
             }
         } else {
+            // Existing product
             int rowsAffected = getContentResolver().update(mCurrentFishUri, values, null, null);
 
             // Show a toast message depending on whether or not the update was successful.
@@ -365,8 +358,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                         Toast.LENGTH_SHORT).show();
             }
         }
-
-        return true;
+        finish();
     }
 
     @Override
